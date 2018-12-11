@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <title>async and await</title>
+</head>
+<body>
+    <!-- https://www.easy-mock.com/mock/5bfbfa7391ea222a361d832e/example/mock -->
+    <!-- https://www.easy-mock.com/mock/5bfbfa7391ea222a361d832e/example/query -->
+
+    
+</body>
+<script>
+  // 都是解决地狱回调 以同步的写法写异步的操作
+  // generator yeild
+  //   依赖外部的runner函数
+  //   不可以使用箭头函数
+  // async await 
+  //   不依赖外部的runner函数 同意标准
+  //   可以使用箭头函数
+  // async function getdata (){
+  //   let getdata = async()=>{ //也可以写成箭头函数的形式
+  //     console.log(1)
+  //     let data1 = await $.ajax({url:'https://www.easy-mock.com/mock/5bfbfa7391ea222a361d832e/example/mock',dataType:'json'})
+  //     // if(!data1.success){
+  //     //   var  data2 = await $.ajax({url:'https://www.easy-mock.com/mock/5bfbfa7391ea222a361d832e/example/query',dataType:'json'})
+  //     // }
+  //     console.log(1)
+  //     let data2 = await $.ajax({url:'https://www.easy-mock.com/mock/5bfbfa7391ea222a361d832e/example/query',dataType:'json'})
+  //     console.log(1)
+      
+  //     console.log(data1,data2)
+  //   }
+  // getdata();
+  // console.log(1)
+
+  // const m=1
+  // function foo(){
+  //   // console.log(m);
+  //   return m
+  // }
+  // try{
+  //   const m=2
+  //   foo()
+  // }catch(e){
+  //   console.log(e)
+  // }
+  // var a = { n: 1 };
+  // var b = a;
+  // a.x = a = { n: 2 };
+  // console.log(a);//{ n: 2 ,}
+  // console.log(b);//{ n: 1 }\
+
+
+  // 下面这两个例子说明了对象本身是没有this，this是存在与函数中的
+  // var b=2
+  // var a = {
+  //   b:1,
+  //   c:this.b//这this没有在任何函数中 在严格模式中undefined  在非严格模式中指向window
+  // }
+  // console.log(a.c)//2
+  // console.log(a.d())//undefined
+
+  // let b=2 //let const 申明的变量不再是全局 window的属性
+  // let a = {
+  //   b:1,
+  //   c:this.b,//由于是块级作用域
+  //   d:function(){
+  //     console.log(this.b)
+  //   }
+  // }
+  // console.log(window.b)
+  // console.log(a.c)//undefined
+  // a.d()//1
+
+
+
+  // let b=2
+  // let a = {
+  //   b:1,
+  //   c:b
+  // }
+
+  // 函数作为函数参数
+    // var length = 10;
+    // function fn() {
+    //     console.log(this)
+    //     console.log(this.length);//10
+    // }
+    
+    // var obj = {
+    //   length: 5,
+    //   method: function(fn) {
+    //     fn();
+    //     arguments[0]();//2  this指向arguments
+    //   }
+    // };
+    
+    // obj.method(fn, 1);//输出是什么？
+
+
+// 总结
+  // this一般有几种调用场景
+  // var obj = {a: 1, b: function(){console.log(this);}}
+  // 1、作为对象调用时，指向该对象 obj.b(); // 指向obj
+  // 2、作为函数调用, var b = obj.b; b(); // 指向全局window
+  // 3、作为构造函数调用 var b = new Fun(); // this指向当前实例对象
+  // 4、作为call与apply调用 obj.b.apply(object, []); // this指向当前的object
+  // 5.this只存在于函数中，对象中并没有this。+++++++++
+    // var a = 1;
+    // var obj = {
+    //     a: 2,
+    //     c: {
+    //         a: 3,
+    //         b: this.a, // 这里的this并不在函数中
+    //     },
+    //     fn: function () {
+    //         return this.a; // 这里的this在函数中
+    //     }
+    // }
+    // console.log(obj.c.b);//1
+    // console.log(obj.fn());//2
+    // 代码中第一个this并不在函数中，this的指向由它所在的函数确定，然而这个this并没有在任何函数中，
+    // 所以this是undefined，在非严格模式下会指向全局对象，这里就是window，所以最后得到window.a
+        
+</script>
+</html>
