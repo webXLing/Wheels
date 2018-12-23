@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>文件拖拽=类似qq邮箱</title>
+  <style>
+  div{
+    width: 500px;background: #ccc;
+    margin: 100px auto;
+    min-height: 100px;
+    height: auto;
+  }
+  </style>
+  <script>
+    window.onload = function(){
+      let div = document.getElementById('odiv');
+      let img = document.querySelector('img')
+      div.addEventListener('dragenter',function(ev){
+        console.log('拖进来了')
+        div.innerHTML='请松手'
+
+      })
+
+      div.addEventListener('dragleave',function(ev){
+        console.log('出去了')
+        div.innerHTML='请将文件拖到此处'
+
+
+      })
+
+      div.addEventListener('dragover',function(ev){
+        ev.preventDefault();//这里dragover的时候必须要接触默认事件 不然drop都无法执行
+        console.log('在我上方悬停呢')
+      })
+
+      div.addEventListener('drop',function(ev){
+        console.log('扔了')
+        // console.log(ev)
+
+        console.log(ev.dataTransfer.files)
+        let reader = new FileReader();
+        // reader.readAsText(ev.dataTransfer.files[0])//文本文件
+        // reader.onload = function(){
+        //   div.innerText = this.result//读取的结果 this =>reader对象
+        // }
+        reader.readAsDataURL(ev.dataTransfer.files[0])//图片  base64
+        reader.onload = function (e){
+          // console.log(e.target.result)
+          // e.target.result===this.result
+          console.log(this.result)
+          img.src = this.result
+          // img.src = e.target.result
+        }
+
+        ev.preventDefault();//drop 也要禁止默认事件 不然 文件回在 浏览器中默认打开 
+
+
+      },false)
+    }
+  </script>
+</head>
+<body>
+  <div id="odiv">将文件拖拽到此处</div>
+  <img src="" alt="" id="img">
+</body>
+</html>
