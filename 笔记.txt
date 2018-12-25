@@ -1,0 +1,172 @@
+安装完 node和npm后  
+sudo cnpm -g vue-cli 
+Vue init webpack 项目名称   
+ Set up unit 是单元测试
+
+v-if dom直接不渲染
+而v-show dom是渲染的 只是通过css display：block | none 来控制
+V-cloak 页面刷新太快 可以隐藏html代码
+v-on：click=‘dasda’ @click=‘green’
+
+V-on:click.stop 组织冒泡 prevent 默认事件  self once 
+
+v-on：keyup.enter
+
+
+父组件给子组件绑定属性 然后在子组件中 用 props：[‘ab’] 它是一个数组
+
+然后子组件通过this.$emit(‘ad’)，去调用父组件的方法
+
+
+前端路由的优缺点
+优点 
+	用户体验好 速度快 因为他是一次性将html css js直接下载好 不需要再次去请求服务器获取
+
+缺点 
+	不利于SEO
+	使用浏览器的前进 后退 会重新发请求 没有很好的利用的缓存
+
+	单页面 页面前进后退 是无法记住滚动条滚动的位置
+
+
+<router-link></router-link>相当于a标签 跳转到对应的路由 或者 this.$router.push({path:’’})
+<router-view></router-view> 显示的位置
+
+动态路由
+嵌套路由
+编程式路由
+命名路由和命名视图
+
+今天虽然是学习了1个半小时 洗个澡 现在是 10-18 21：26但是心情还是不错的 希望接下来的每一天都能学习1.5-2个小时 应该说是必须 加油吧 养成个好习惯 年后找个好公司 真的不想再现在的公司呆了 真的学不到什么东西
+
+
+
+获取动态路由的参数  $route.params.
+
+Vue-router 就是对浏览器对象中的history的封装 history.go(0)就是刷新本页history.go(1)往前跳一页  
+HTML5为history对象添加了两个新方法，history.pushState()和history.replaceState()，用来在浏览历史中添加和修改记录。 
+
+Hash 与 History 的区别
+Hash 模式 可以称未锚点 是用来做页面定位的 可以用hashchange来监听比较老 是h5的history 出现前 来实现前端路由的 前进后退是不会请求服务 v
+
+History 模式 h5新增
+history.go(-2);//后退两次
+history.go(2);//前进两次
+history.back(); //后退
+hsitory.forward(); //前进
+
+
+
+修改历史状态包括了pushState,replaceState
+两个方法,这两个方法接收三个参数:stateObj,title,url 
+第一个参数 用来存储这个页面的一个状态 当页面切回来的时候我们可以拿到这个状态去 恢复原来的状态  以上这些方法都是实实在在会刷新页面的请求服务器的  
+
+ 
+
+
+
+编程式路由
+	采用js向router中添加路径 
+this.$router.push('/cart')
+this.$router.push({path:'/cart?goodid=22'})
+this.$router.push({path:’/cart',query:{goodid:22}})
+	然后再cart 中获取参数
+<div>传参{{$route.query.goodid}}</div>
+
+命名路由
+<router-link v-bind:to='{ name : "Cart",params:{goodid:22}}'>命名路由</router-link>
+
+这里一定要使用v-bind绑定tu属性 不然他就不这个对象当做要跳转的路由  params是路由的参数所以要用$route.params.goodid 去接收 $router.query 是页面间的参数 注意	
+
+命名视图
+    <router-view/>
+    <router-view name='title' class="left" />
+    <router-view name='img' class="right" />
+
+   {
+      path:'/good',
+      name:'GoodsList',
+      // component:GoodsList,
+      components:{
+          default:GoodsList,
+          title:Title,
+          img:Img
+      },
+
+
+
+如果一个js有多个导出export的话 那么import的时候就要
+import * as funs from ‘./demo' 
+// import {add,min} from './demo.js'
+// console.log(add)
+// console.log(add(1,2))
+console.log(funs.add(1,2))
+
+AMD CMD CommonJs Es6 是解决模块化
+AMD CMD CommonJs 是一个标准 规范
+AMD 是Require.js 的产出物
+
+@click="priceChecked = index”//可以写简单的表达式 但是如果其他的逻辑没法用 向console.log()
+vue-lazyload  图片懒加载插件
+
+cnpm i -g express-generator. //脚手架 就像vue-cli
+express —version
+express serve
+
+
+
+show dbs
+use admin  //创建一个数据库
+db.createUser({user:”admin",pwd:"admin",roles:["root"]}) //创建账号
+db.auth(“admin","admin") //认证账号密码
+
+
+Mac 下命令行清空  cmd k
+/Applications/MAMP/tmp/mysql/mysql.sock
+
+
+
+http2(实验性)  RFC 7540
+ 1.强制https
+ 2.性能更高-面向流
+ 3.双向通行-服务器推送
+
+ajax2.0   IE10+
+ 1.FormData-容器
+   常用的方法 set/get/append
+ 2.文件上传、上传进度的监控
+   xhr.upload.onload    上传完成
+   xhr.upload.onprogress  进度的变化
+ 3.CORS 跨域  跨域资源共享
+   浏览器+服务器共同努力
+
+jsonp  废弃
+https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=a&cb=show
+
+show({q:"a",p:false,s:["爱奇艺","adidas字体","阿里云","阿里巴巴","acf","安居客","阿里巴巴批发网","安全教育平台","爱思助手","安卓模拟器"]});
+
+Jsonp 其实就是利用了script是没有同源限制的  通过script去讲想要的数据 作为函数的入参返回 
+Jsonp废弃原因 一旦你的网站有jsonp的接口 那么就相当于全网都可以用这个接口
+
+HTNL5新特性
+1、geolocatiob    定位：经纬度 海拔   实用
+   PC-IP地址
+     精度低
+     IP庫
+   手机-GPS
+2、video、audio   音频             实用
+3、canvas                         实用
+4、WebSocket                     实用
+5、localStrorage                 实用
+   sessionStrorage
+6、WebSQL
+7、WebWorker    多进程 
+   不能操作UI操作，子进程只能进行计算
+8、文件操作
+   拖拽、读取
+
+
+
+
+
+
