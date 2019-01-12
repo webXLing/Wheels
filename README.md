@@ -4,7 +4,7 @@
 * 手写一个Promise
 
 # NodeJS
-* [一个较为完全的原生nodejs 后台](http://jianshu.com)
+* [一个较为完全的原生nodejs 后台](https://github.com/webXLing/Keep-Learning/tree/master/2019-1-12)
   1. http 服务
   2. 接口  采用router
   3. 文件
