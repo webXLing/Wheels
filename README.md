@@ -11,7 +11,7 @@
   4. 流操作  流传输
   5. 压缩  压缩传输
 ----
-* [简易安居客前后端](https://github.com/webXLing/Keep-Learning/tree/master/2019-1-12)   
+* [简易安居客前后端](https://github.com/webXLing/Keep-Learning/tree/master/%E7%AE%80%E6%98%93%E5%AE%89%E5%B1%85%E5%AE%A2-%E5%89%8D%E5%90%8E%E7%AB%AF)   
 
   后台管理页面  
     登录：采用session做的能录验证，若未登录自动跳转登录页
