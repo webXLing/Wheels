@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>管理端</title>
+    <script src="/js/jquery.js" charset="utf-8"></script>
+    <script src="/js/bootstrap.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body>
+    <div class="page-wrap">
+      <div class="page-menu">
+        <ul class="nav nav-pills nav-stacked">
+          <li role="presentation" class="active"><a href="#">房源</a></li>
+          <li role="presentation"><a href="#">友情链接</a></li>
+          <li role="presentation"><a href="#">广告管理</a></li>
+        </ul>
+      </div>
+      <div class="page-content">
+        <div class="navbar navbar-default">
+          <form class="navbar-form navbar-left" action="?" method="get">
+            <div class="form-group" style="margin-right:20px;">
+              <button type="button" class="btn btn-default glyphicon glyphicon-plus" id='add'>新建</button>
+            </div>
+            <div class="form-group" style="margin-right:20px;">
+              <button type="button" class="btn btn-default glyphicon glyphicon-remove">删除</button>
+            </div>
+            <div class="form-group">
+              <input type="search" class="form-control" value="<%= keyword %>" name=keyword>
+              <button type="submit" class="btn btn-default" >搜索</button>
+            </div>
+          </form>
+        </div>
+        <nav aria-label="Page navigation">
+          <ul class="pagination margin-0">
+            <li>
+              <a href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <% for(let i = 0;i<page_count;i++){ %>
+              <% if(curent_page==i+1){ %>
+                <li><a class='link_active' href="?page=<%= i+1 %>&keyword=<%= keyword %>"><%= i+1 %></a></li>
+              <% }else{   %>
+                <li><a href="?page=<%= i+1 %>&keyword=<%= keyword %>"><%= i+1 %></a></li>
+              <% } %>
+            <% } %>
+            <li>
+              <a href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <table class="table">
+          <thead>
+            <tr>
+              <th width="300">
+                <label>
+                  <input type="checkbox">
+                  ID
+                </label>
+              </th>
+              <th width="400">标题</th>
+              <th>均价</th>
+              <th>电话</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% data.forEach(json=>{ %>
+            <tr>
+              <td>
+                <label>
+                  <input type="checkbox">
+                  <%=json.ID%>
+                </label>
+              </td>
+              <td><%=json.title%></td>
+              <td><%=json.ave_price%></td>
+              <td><%=json.tel%></td>
+              <td>
+                <a href="javascript:;" onclick='showFrom("<%= json.ID %>")'’>编辑</a>
+                <a 
+                  href="/admin/house/delete?id=<%= json.ID %>"
+                  onclick="return confirm('确认删除该条信息吗？')">
+                  删除
+                </a>
+              </td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="shadow" id='shadow'></div>
+    <div class="panel panel-default add_modify_dialog" id="dialog">
+      <div class="panel-heading">
+        <h3 class="panel-title" id="cancel">
+          添加/修改
+          <a href="#" class="pull-right glyphicon glyphicon-remove"></a>
+        </h3>
+      </div>
+      <div class="panel-body" style="overflow:auto; height:460px;">
+        <form class="form-horizontal" method="post" action="?" enctype="multipart/form-data">
+          <input type="hidden" name='is_modf' id="is_modf" value='0'>
+          <input type="hidden" name='old_id' id="old_id" value=''>
+          <div class="form-group" id="from-container">
+            <!-- <label for="id1" class="col-sm-2 control-label">数据1</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="id1" placeholder="请输入数据...">
+            </div> -->
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%" >
+            确定
+          </button>
+            
+        </form>
+        <script>
+          // 编辑
+          function showFrom(id){
+            $.ajax({
+              url:'/admin/house/getdata',
+              dataType:'json',//预期服务器返回的数据类型
+              data:{id},
+              success(e){
+                shadow.style.display = 'block';
+                dialog.style.display = 'block';
+                console.log('这里 ',e)
+                $('#is_modf')[0].value='1';
+                $('#old_id')[0].value=id;
+
+                creatForm(e)
+              },
+              error(){
+                alert('服务器错误')
+              }
+
+            })
+            console.log(id)
+          }
+
+          // let $ = document.querySelectorAll.bind(document);
+          let formContainer = $('#from-container')[0];
+          let dialog =  $('#dialog')[0];
+          let addBtn = $('#add')[0];
+          let cancelBtn = $('#cancel')[0];
+          let shadow = $('#shadow')[0];
+          
+
+          function creatForm(json={}){
+            formContainer.innerHTML='';
+            let formList = [
+              {
+                text:'标题',type:'text',name:'title'
+              },
+              {
+                text:'副标题',type:'text',name:'sub_title'
+              },
+              {
+                text:'主位置',type:'text',name:'position_main'
+              },
+              {
+                text:'副位置',type:'text',name:'position_second'
+              },
+              {
+                text:'均价',type:'number',name:'ave_price'
+              },
+              {
+                text:'最小面积',type:'number',name:'area_min'
+              },
+              {
+                text:'最大面积',type:'number',name:'area_max'
+              },
+              {
+                text:'电话',type:'tel',name:'tel'
+              },
+              {
+                text:'开盘日期',type:'date',name:'sale_time'
+              },
+              {
+                text:'交房日期',type:'date',name:'submit_time'
+              },
+              {
+                text:'建筑类型',type:'text',name:'building_type'
+              },
+              {
+                text:'大图',type:'file',name:'main_img'
+              },
+              {
+                text:'小图(多选)',type:'file',name:'img',multiple:true
+              },
+              {
+                text:'户型',type:'text',name:'property_types'
+              },
+              {
+                text:'户型图',type:'file',name:'property_img'
+              }
+            ]
+
+
+            let divs = document.createElement('div');
+            for(let i in formList){
+              let divs = document.createElement('div');
+              divs.className = 'form-group'
+              divs.innerHTML = `
+              <label for="id${i}" class="col-sm-2 control-label">${formList[i].text}</label>
+              <div class="col-sm-10">
+              <input type="${formList[i].type}"
+              id="id${i}" class="form-control" ${formList[i].multiple?'multiple':''} placeholder="请输入${formList[i].text}" value="${json[formList[i].name]||''}" name="${formList[i].name}">
+              </div>`
+
+              formContainer.appendChild(divs);
+
+              if(formList[i].type=='date'){
+                if(json[formList[i].name] && json[formList[i].name]!='0'){
+                  let d = new Date(json[formList[i].name]*1000||0);
+                  console.log(d.getFullYear()+'-'+toD(d.getMonth()+1)+'-'+toD(d.getDate()))
+                  // $(`#id${i}`).value[0] = d.getFullYear()+'-'+toD(d.getMonth())+'-'+toD(d.getDate())
+                  console.log(`id${i}`)
+                  document.getElementById(`id${i}`).value = d.getFullYear()+'-'+toD(d.getMonth()+1)+'-'+toD(d.getDate())
+                }
+ 
+              }
+            }
+          }
+          function toD(n){
+            return n>=10?''+n:'0'+n
+          }
+          function formatDateTime(timeStamp) { 
+              var date = new Date();
+              date.setTime(timeStamp * 1000);
+              var y = date.getFullYear();    
+              var m = date.getMonth() + 1;    
+              m = m < 10 ? ('0' + m) : m;    
+              var d = date.getDate();    
+              d = d < 10 ? ('0' + d) : d;    
+              var h = date.getHours();  
+              h = h < 10 ? ('0' + h) : h;  
+              var minute = date.getMinutes();  
+              var second = date.getSeconds();  
+              minute = minute < 10 ? ('0' + minute) : minute;    
+              second = second < 10 ? ('0' + second) : second;   
+              return y + '-' + m + '-' + d+' '+h+':'+minute+':'+second;    
+          };  
+
+          addBtn.onclick = function(){
+            console.log('新建')
+            shadow.style.display = 'block';
+            dialog.style.display = 'block';
+            creatForm()
+          }
+          cancelBtn.onclick = function(){
+            console.log('取消')
+            dialog.style.display = 'none';
+            shadow.style.display = 'none';
+            $('#is_modf')[0].value='0';
+
+          }
+
+        </script>
+      </div>
+    </div>
+  </body>
+</html>
