@@ -1,8 +1,12 @@
 # 目录清单
 
 * 文件拖拽读取
+* [函数防抖-函数节流总结](https://juejin.im/post/5b8a59c2f265da433655a7ee)
 * [手写一个Promise](https://github.com/webXLing/Keep-Learning/blob/master/%E6%89%8B%E5%86%99%E4%B8%80%E4%B8%AAPromise.html)
 
+# 数据结构与算法
+  LeetCode 4题
+  
 # NodeJS
 * [一个较为完全的原生nodejs 后台](https://github.com/webXLing/Keep-Learning/tree/master/2019-1-12)
   1. http 服务
