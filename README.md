@@ -5,8 +5,8 @@
 * [手写一个Promise](https://github.com/webXLing/Keep-Learning/blob/master/%E6%89%8B%E5%86%99%E4%B8%80%E4%B8%AAPromise.html)
 
 # 数据结构与算法
-  * js栈的实现与应用
-  [LeetCode 4题](https://github.com/webXLing/leetcode-js)
+  * [js栈的实现与应用](https://github.com/webXLing/leetcode-js)  
+  * [LeetCode 4题](https://github.com/webXLing/leetcode-js)
   
 # NodeJS
 * [一个较为完全的原生nodejs 后台](https://github.com/webXLing/Keep-Learning/tree/master/2019-1-12)
