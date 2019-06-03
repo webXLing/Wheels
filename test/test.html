@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  // 第 67 题：随机生成一个长度为 10 的整数类型的数组，例如 [2, 10, 3, 4, 5, 11, 10, 11, 20]，将其排列成一个新数组，要求新数组形式如下，例如 [[2, 3, 4, 5], [10, 11], [20]]。 #113
+
+  // Math.random()*10
+
+  // var hasGroupsSizeX = function (deck) {
+  //   if (deck.length <= 1) {
+  //     return false;
+  //   }
+
+  //   // 求最大公约数
+  //   function getMaxDivisor(a, b) {
+  //     if (a === 0) {
+  //       return b;
+  //     }
+  //     return getMaxDivisor(b % a, a);
+  //   }
+
+  //   var map = {};
+  //   var arr = [];
+  //   var a, b, maxDivisor;
+
+  //   // 获取每个值出现的次数
+  //   deck.forEach(item => {
+  //     map[item] = (map[item] === undefined ? 1 : ++map[item]);
+  //   })
+
+  //   // 将出现的次数存入数组中
+  //   Object.keys(map).forEach(key => {
+  //     arr.push(map[key])
+  //   })
+
+  //   // 提取公共的公约数
+  //   while (arr.length > 1) {
+  //     a = arr.shift();
+  //     b = arr.shift();
+  //     maxDivisor = getMaxDivisor(a, b);
+  //     if (maxDivisor < 2) {
+  //       return false;
+  //     } else {
+  //       arr.unshift(maxDivisor);
+  //     }
+  //   }
+
+  //   return true;
+  // }
+    
+  var hasGroupsSizeX = function (deck) {
+    const gcd = (a, b) => b > 0 ? gcd(b, a % b) : a;
+    // (6, 3) => b > 0 ? gcd(b, a % b) : a;
+    let map = {};
+    deck.forEach(el => {
+      map[el] = (map[el] || 0) + 1;
+    });
+    // return map
+    
+    let X = 0;
+    let counts = Object.values(map);//对象的value 的数组  6,3
+    for (const count of counts) {
+      X = gcd(count, X);
+    }
+    return X > 1;
+  };
+
+  console.log(hasGroupsSizeX([1, 1, 1, 1, 1, 1, 2, 2, 2]))
+</script>
+
+</html>

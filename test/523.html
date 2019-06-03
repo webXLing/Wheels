@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    .outer {
+      width: 600px;
+      height: 200px;
+      position: relative;
+    }
+
+    .inner {
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      width: 40px;
+      height: 40px;
+      background: red;
+    }
+
+    .g-nav {
+      display: flex;
+    }
+
+    .g-login {
+      margin-left: auto;
+    }
+
+    li {
+      width: 100px;
+      height: 50px;
+      background: greenyellow;
+      list-style: none;
+      line-height: 50px;
+
+    }
+
+    .g-container {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+    }
+
+    .s-thirf {
+      margin-top: auto;
+    }
+
+    .s-forth {
+      margin-bottom: auto;
+    }
+
+    .g-container {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .g-footer {
+      margin-top: auto;
+      flex-shrink: 0;
+      height: 30px;
+      background: deeppink;
+    }
+
+    .box {
+      width: 100px;
+      height: 100px;
+      text-align: center;
+      line-height: 100px;
+      margin: 0 auto;
+      border: 1px solid #000;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- <div class="outer">
+    <div class="inner"></div>
+  </div> -->
+  <!-- <ul class="g-nav">
+    <li>导航A</li>
+    <li>导航B</li>
+    <li>导航C</li>
+    <li>导航D</li>
+    <li class="g-login">登陆</li>
+    <li>导航D</li>
+  </ul>
+
+  <div class="g-container">
+    <p>这是第一行文案</p>
+    <p>这是第二行文案</p>
+    <p class="s-thirf">1、剩余多行文案需要垂直居中剩余空间</p>
+    <p class="s-forth">2、剩余多行文案需要垂直居中剩余空间</p>
+    <p>这是最后一行文案</p>
+  </div> -->
+
+  <!-- <div class="g-container">
+    <div class="g-real-box">
+      ...
+    </div>
+    <div class="g-footer"></div>
+  </div> -->
+  <div class="box" id='span'>0</div>
+
+</body>
+<script>
+  /*
+  * @Author: web_XL
+  * @Date: 2019-05-23 09:26:24
+ * @Last Modified by: web_XL
+ * @Last Modified time: 2019-05-24 16:41:19
+  */
+  // 时间戳版  //连续触发时 第一次会立即执行，之后秒执行一次
+  // const throttle = (func, wait, ...args) => {
+  //   let previous = 0;
+  //   return function () {
+  //     let context = this;
+  //     let now = Date.now()
+  //     if (now - previous > wait) {
+  //       func.apply(context, args)
+  //       previous = now
+  //     }
+  //   }
+  // }
+
+  //非 立即执行版
+  const debounce = (func, wait, ...args) => {
+    let timeout;
+    return function () {
+      let context = this;
+      if (timeout) clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        func.apply(context, args);
+      }, wait)
+    }
+  }
+
+
+  //setTimeout 回调函数为非箭头函数
+  // const debounce = (func, wait, ...args) => {
+  //   let timeout
+  //   return function (e) {
+  //     const context = this
+  //     if (timeout) clearTimeout(timeout);
+  //     timeout = setTimeout(function () {//setTimeout 返回值是这个额计时器一个唯一标志符
+  //       对于延时函数内部的回调函数的this指向全局对象window
+  //       console.log(this)//window 有点意外吧 setTimeout是window的方法所以this指向window
+  //       console.log(context)//这个好理解，谁去调用就指向哪个
+  //       func.apply(context, args)//apply能够将数组自动转化为参数列表
+  //     }, wait)
+  //   }
+  // }
+
+  //setTimeout 回调函数为箭头函数
+  // const debounce = (func, wait, ...args) => {
+  //   let timeout
+  //   return function (e) {
+  //     const context = this
+  //     if (timeout) clearTimeout(timeout);
+  //     timeout = setTimeout(() => {
+  //       //setTimeout 返回值是这个额计时器一个唯一标志符对于延时函数内部的回调函数的this指向全局对象window
+  //       console.log(this)
+  //       //由于这里的函数时箭头函数，箭头函数的this指向的是定义时的this，而不是执行的this，所以这里的this会和context保持一致
+  //       console.log(context)
+  //       func.apply(context, args)//apply能够将数组自动转化为参数列表
+  //     }, wait)
+  //   }
+  // }
+  // 立即执行版
+  // const debounce = (func, wait, ...args) => {
+  //   let timeout;
+  //   return function () {
+  //     let context = this
+  //     if (timeout) clearTimeout(timeout);
+  //     if (!timeout) func.apply(context, args);
+  //     timeout = setTimeout(() => {
+  //       timeout = null
+  //     }, wait)
+  //   }
+  // }
+
+
+  let span = document.getElementById('span')//js
+  let num = 0
+  function mouseover(...args) {
+    console.log(this)
+    console.log('mouseoverz执行了')
+    num++
+    this.innerHTML = num
+  }
+  // span.addEventListener('mouseover', mouseover)
+
+  span.addEventListener('mouseover', debounce(mouseover, 1000))
+
+
+
+  // var a = 0;
+  // // console.log('a1 ')
+  // console.log(a != '')
+  // if (a != null && typeof (a) != undefined && a != '') {
+  //   //a1 
+  //   console.log('a1 ')
+  // }
+  // if (!!a) {
+  //   //a1 
+  //   console.log('a1 ')
+  // }
+
+  // 'use strict'
+  // ; (function A() {
+  //   console.log(A); // [Function A]
+  //   A = 1;
+  //   console.log(window.A); // undefined
+  //   console.log(A); // [Function A]
+  // }())
+
+  // (function A() {
+  //   console.log(A); // undefined
+  //   var A = 1;
+  //   console.log(window.A); // undefined
+  //   console.log(A); // 1
+  // }())
+
+  // function A() {
+  //   console.log(A); // [Function A]
+  //   A = 1;
+  //   console.log(window.A); // 1
+  //   console.log(A); // 1
+  // }
+  // A();
+  // 非匿名自执行函数，函数名只读。
+
+  // 几个例子：
+
+  // var b = 10;
+  // (function b() {
+  //   // 内部作用域，会先去查找是有已有变量b的声明，有就直接赋值20，确实有了呀。发现了具名函数 function b(){}，拿此b做赋值；
+  //   // IIFE的函数无法进行赋值（内部机制，类似const定义的常量），所以无效。
+  //   // （这里说的“内部机制”，想搞清楚，需要去查阅一些资料，弄明白IIFE在JS引擎的工作方式，堆栈存储IIFE的方式等）
+  //   b = 20;
+  //   console.log(b); // [Function b]
+  //   console.log(window.b); // 10，不是20
+  // })();
+  // 所以严格模式下能看到错误：Uncaught TypeError: Assignment to constant variable
+
+  // var b = 10;
+  // (function b() {
+  //   'use strict'
+  //   b = 20;
+  //   console.log(b)
+  // })() // "Uncaught TypeError: Assignment to constant variable."
+  // 其他情况例子：
+
+  // 有window：
+
+  // var b = 10;
+  // (function b() {
+  //   window.b = 20;
+  //   console.log(b); // [Function b]
+  //   console.log(window.b); // 20是必然的
+  // })();
+  // 有var:
+
+  // var b = 10;
+  // (function b() {
+  //   var b = 20; // IIFE内部变量
+  //   console.log(b); // 20
+  //   console.log(window.b); // 10 
+  // })();
+
+
+  // var b = 10;
+  // ; (function b() {
+  //   b = 20;
+  //   console.log(b)
+  // })()
+  // 针对这题，在知乎上看到别人的回答说：
+
+  // 函数表达式与函数声明不同，函数名只在该函数内部有效，并且此绑定是常量绑定。
+  // 对于一个常量进行赋值，在 strict 模式下会报错，非 strict 模式下静默失败。
+  // IIFE中的函数是函数表达式，而不是函数声明。
+  // 实际上，有点类似于以下代码，但不完全相同，因为使用const不管在什么模式下，都会TypeError类型的错误
+
+  // const foo = function () {
+  //   foo = 10;
+  //   console.log(foo)
+  // }
+  //   (foo)() // Uncaught TypeError: Assignment to constant variable.
+  // 我的理解是，b函数是一个相当于用const定义的常量，内部无法进行重新赋值，如果在严格模式下，会报错"Uncaught TypeError: Assignment to constant variable."
+  // 例如下面的：
+
+  // var b = 10;
+  // (function b() {
+  //   'use strict'
+  //   b = 20;
+  //   console.log(b)
+  // })() // "Uncaught TypeError: Assignment to constant variable."
+  // 不知道我这回答有没有问题
+
+
+  // let sign = true
+  // function test() {
+  //   console.log(1)
+  // }
+  // sign && test()
+
+
+  // async function async1() {
+  //   console.log('async1 start');
+  //   await async2();
+  //   console.log('async1 end');
+  // }
+  // async function async2() {
+  //   console.log('async2');
+  // }
+  // console.log('script start');
+  // setTimeout(function () {
+  //   console.log('setTimeout');
+  // }, 0)
+  // async1();
+  // new Promise(function (resolve) {
+  //   console.log('promise1');
+  //   resolve();
+  // }).then(function () {
+  //   console.log('promise2');
+  // });
+  // console.log('script end');
+
+</script>
+
+</html>

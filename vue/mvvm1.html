@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>MVVM</title>
+</head>
+<!-- MVVM 双向数据绑定 angular 脏值检测 vue 数据劫持+发布订阅者模式 -->
+<!-- vue 不支持ie8以下 =>Object.defineProperty -->
+<script src="./myVue.js"></script>
+
+<body>
+  <div id='app'>
+    <p>a:{{a.a}}</p>
+    <p>b:{{b}}</p>
+    <input type="text" v-model='b'>
+    <div>{{foo}}</div>
+  </div>
+</body>
+<script>
+  let vm = new Myvue({
+    el: '#app',
+    data: {
+      a: {
+        a: 1
+      },
+      b: 'nihao',
+      c: '今天是524'
+    },
+    computed: {
+      // foo() {
+      //   return this.b + this.c
+      // }
+      foo: {
+        get() {
+          return this.b + this.c
+        }
+      }
+    }
+  })
+
+
+
+
+
+
+</script>
+
+</html>
