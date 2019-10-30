@@ -16,16 +16,15 @@ class Board extends Component {
     //   console.log('arr[i]=>', arr[i] === undefined)
     // }
     // console.log('Array(9).fill(null)', Array(9).fill('null'))
-
   }
+
   renderSquare (i) {
     return (
       <Square
-        value={this.state.square[i]} name='xl'
-        onClick={() => {
-          this.handleClick(i)
-        }} />
-    );
+        value={this.state.square[i]}
+        onClick={() => this.handleClick(i)}
+      />
+    )
   }
 
   render () {
@@ -54,9 +53,12 @@ class Board extends Component {
   }
 
   handleClick (i) {
-    console.log('handleClick')
-    alert(i)
+    const square = this.state.square.slice();
+    square[i] = 'X';
+    console.log('square',square)
+    this.setState({ square: square });
   }
+
 }
 
 export default Board

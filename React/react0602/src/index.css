@@ -1,3 +1,4 @@
+@import '~antd/dist/antd.css';
 body {
   font: 14px "Century Gothic", Futura, sans-serif;
   margin: 20px;
@@ -47,4 +48,27 @@ ol, ul {
 
 .game-info {
   margin-left: 20px;
+}
+
+/* ----- */
+.my-node-enter,.my-node-active {
+  opacity: 0;
+}
+.my-node-enter-active, .my-node-appear-active{
+  opacity: 1;
+  transition: opacity 1s;
+}
+.my-node-enter-done {
+  opacity: 1;
+}
+
+.my-node-exit {
+  opacity: 1;
+}
+.my-node-exit-active {
+  opacity: 0;
+  transition: opacity 1s;
+}
+.my-node-exit-done {
+  opacity: 0;
 }

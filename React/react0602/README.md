@@ -1,5 +1,28 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 虚拟DOM
+- state + JSX => 数据 + 模板
+- 生成虚拟DOM (JS对象 用于描述真实的DOM) 消耗性能 
+```
+<div id='box'>
+  <span class='item'>nihao 0610</span>
+</div>
+=>
+['div',{ id:'box'},['span',{class:'item','nihao 0610'}]]
+```
+- 通过虚拟DOM 生成真实DOM
+- state 发生改变
+- 数据 + 模板 => 生成新的虚拟DOM (JS对象 用于描述真实的DOM) 消耗性能 
+- 比较 旧的虚拟DOM  与新的虚拟DOM之间的区别 比如 span 的内容分不一样
+- 直接操作DOM 改变span 的内容
 
+
+优点：
+1 性能提升
+2 使得跨端得以实现 React Native
+
+### diff 算法
+- React 会将多次的setState 合并为一次 减少比较虚拟DOM的次数
+- diff算法在 比对虚拟DOM 会对新旧虚拟 逐层、同层比对 如果当前的 父层比对不一致 那么就直接替换 旧的dom 不在比对子层
+- key 在列表循环的作用 稳定唯一的key 能够快速的比对新旧的虚拟dom 所以尽量不要用index作为key 
 ## Available Scripts
 
 In the project directory, you can run:

@@ -3,17 +3,19 @@ import React, { Component } from 'react'
 // 每个小方块
 class Square extends Component {
   constructor(props) {
-    console.log('props', props)
+    // console.log('props', props)
     super(props)
     this.state = {
-      value:''
+      value: ''
     }
   }
 
   render () {
     return (
-      <button className='square' onClick={ ()=> { this.setState({value:'X'}) }}>
-        {this.state.value}
+      <button
+        className='square'
+        onClick={() => { this.props.onClick() }}>
+        {this.props.value}
       </button>
     )
   }

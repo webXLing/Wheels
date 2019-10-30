@@ -120,7 +120,7 @@
   * @Author: web_XL
   * @Date: 2019-05-23 09:26:24
  * @Last Modified by: web_XL
- * @Last Modified time: 2019-05-24 16:41:19
+ * @Last Modified time: 2019-06-13 19:12:20
   */
   // 时间戳版  //连续触发时 第一次会立即执行，之后秒执行一次
   // const throttle = (func, wait, ...args) => {
@@ -136,16 +136,16 @@
   // }
 
   //非 立即执行版
-  const debounce = (func, wait, ...args) => {
-    let timeout;
-    return function () {
-      let context = this;
-      if (timeout) clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        func.apply(context, args);
-      }, wait)
-    }
-  }
+  // const debounce = (func, wait, ...args) => {
+  //   let timeout;
+  //   return function () {
+  //     let context = this;
+  //     if (timeout) clearTimeout(timeout);
+  //     timeout = setTimeout(() => {
+  //       func.apply(context, args);
+  //     }, wait)
+  //   }
+  // }
 
 
   //setTimeout 回调函数为非箭头函数
@@ -192,17 +192,17 @@
   // }
 
 
-  let span = document.getElementById('span')//js
-  let num = 0
-  function mouseover(...args) {
-    console.log(this)
-    console.log('mouseoverz执行了')
-    num++
-    this.innerHTML = num
-  }
-  // span.addEventListener('mouseover', mouseover)
+  // let span = document.getElementById('span')//js
+  // let num = 0
+  // function mouseover(...args) {
+  //   console.log(this)
+  //   console.log('mouseoverz执行了')
+  //   num++
+  //   this.innerHTML = num
+  // }
+  // // span.addEventListener('mouseover', mouseover)
 
-  span.addEventListener('mouseover', debounce(mouseover, 1000))
+  // span.addEventListener('mouseover', debounce(mouseover, 1000))
 
 
 
@@ -338,6 +338,14 @@
   // });
   // console.log('script end');
 
+
+  var length = 10;
+  var fn = function () {
+    console.log(this.length)
+  }
+  fn()
+  var arr = [fn]
+  arr[0]();
 </script>
 
 </html>

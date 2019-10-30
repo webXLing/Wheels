@@ -57,25 +57,97 @@
 
   //   return true;
   // }
-    
-  var hasGroupsSizeX = function (deck) {
-    const gcd = (a, b) => b > 0 ? gcd(b, a % b) : a;
-    // (6, 3) => b > 0 ? gcd(b, a % b) : a;
-    let map = {};
-    deck.forEach(el => {
-      map[el] = (map[el] || 0) + 1;
-    });
-    // return map
-    
-    let X = 0;
-    let counts = Object.values(map);//对象的value 的数组  6,3
-    for (const count of counts) {
-      X = gcd(count, X);
+
+  // var hasGroupsSizeX = function (deck) {
+  //   const gcd = (a, b) => b > 0 ? gcd(b, a % b) : a;
+  //   // (6, 3) => b > 0 ? gcd(b, a % b) : a;
+  //   let map = {};
+  //   deck.forEach(el => {
+  //     map[el] = (map[el] || 0) + 1;
+  //   });
+  //   // return map
+
+  //   let X = 0;
+  //   let counts = Object.values(map);//对象的value 的数组  6,3
+  //   for (const count of counts) {
+  //     X = gcd(count, X);
+  //   }
+  //   return X > 1;
+  // };
+
+  // console.log(hasGroupsSizeX([1, 1, 1, 1, 1, 1, 2, 2, 2]))
+  // 'use strict'
+  // function a() {
+  //   console.log(this)
+  // }
+  // // a()
+
+  // let b = {
+  //   a: a,
+  //   b: function () {
+  //     console.log(this)
+  //   }
+  // }
+
+  // b.a()
+  // b.b()
+
+  // 'use strict';
+  // var obj = {
+  //   i: 10,
+  //   b: {
+  //     aa: () => console.log(this, this.i),
+  //     bb: function () {
+  //       console.log(this, this.i)
+  //     },
+  //     i: 'xl'
+  //   },
+  //   c: function () {
+  //     console.log(this.i, this)
+  //   },
+  //   d: () => {
+  //     console.log(this.i, this)
+  //   }
+  // }
+  // obj.b.aa();  //obj 10
+  // obj.b.bb();  //obj.b xl
+
+  // // undefined, Window{...}
+  // obj.c();
+  // obj.d();
+
+  // // 10, Object {...}
+  // // console.log()
+
+  // 常规写法
+
+  // Create obj with a method bar that returns a function that
+  // returns its this. The returned function is created as 
+  // an arrow function, so its this is permanently bound to the
+  // this of its enclosing function. The value of bar can be set
+  // in the call, which in turn sets the value of the 
+  // returned function.
+  var obj = {
+    bar: function () {
+      console.log(this)
+      var x = (() => this);
+      return x;
     }
-    return X > 1;
   };
 
-  console.log(hasGroupsSizeX([1, 1, 1, 1, 1, 1, 2, 2, 2]))
+  // Call bar as a method of obj, setting its this to obj
+  // Assign a reference to the returned function to fn
+  var fn = obj.bar();
+
+  // Call fn without setting this, would normally default
+  // to the global object or undefined in strict mode
+  console.log(fn() === obj); // true
+
+  // But caution if you reference the method of obj without calling it
+  var fn2 = obj.bar;
+  // Calling the arrow function's this from inside the bar method()
+  // will now return window, because it follows the this from fn2.
+  console.log(fn2()() == window); // true
 </script>
 
 </html>

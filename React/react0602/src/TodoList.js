@@ -1,97 +1,74 @@
-import React, { Component, Fragment } from 'react';
-import TodoItem from './TodoItem';
+import React, { Component } from 'react';
+import store from './store'
+import { initListaction, getImpChangeAction, getPopListAction, getChangeListAction } from './store/actionCreators'
+import TodoListUI from './TodoListUI'
+import Axios from 'axios';
 
-// Fragment 占位符   类似于template  react 16
+// 容器组件 逻辑处理
 class TodoList extends Component {
   constructor(props) {
-    super(props) //将参数 传给 父类
-    this.state = {
-      impValue: '',
-      lists: []
-    }
+    super(props)
+    this.state = store.getState()
     this.handleInputChange = this.handleInputChange.bind(this)
-    this.handleBtn = this.handleBtn.bind(this)
-    this.handleDelete = this.handleDelete.bind(this)
-  }
-  render () {
-    return (//括号的作用是 可以jsx语法 分行写  
-      <Fragment>
-        <label htmlFor='input'>请输入内容</label>
-        <input
-          id='input'
-          value={this.state.impValue}
-          onChange={this.handleInputChange} />
-        <button
-          onClick={this.handleBtn}>提交</button>
-        <ul>
-          {this.getItem()}
-        </ul>
-      </Fragment>
-    )
-  }
-  getItem () {
-    return this.state.lists.map((item, index) => {
-      return (
-        // <li key={index} onClick={this.handleDelete.bind(this,index)}>{item}</li>
-        // <li
-        //   key={index}
-        //   onClick={this.handleDelete.bind(this, index)}
-        //   dangerouslySetInnerHTML={{ __html: item + '元' }}
-        // >
-        // </li>
-        //能够解析 html 但是谨防xss 攻击
-        <TodoItem
-          value={item}
-          key={index}
-          index={index}
-          deleteItem={this.handleDelete} />
-      )
-    })
+    this.storeChange = this.storeChange.bind(this)
+    this.btnClick = this.btnClick.bind(this)
+    this.itemClick = this.itemClick.bind(this)
+
+    console.log(store.getState())
+    store.subscribe(this.storeChange)//监听store 改变 当store 改变会执行回调函数
   }
 
-  handleBtn () {
-    // console.log(this)
-    // this.setState({
-    //   lists: [...this.state.lists, this.state.impValue],
-    //   impValue: ''
-    // })
+  btnClick () {
 
-    this.setState((prevState) => ({//prevState 修改前的 state的 值
-      lists: [...prevState.lists, prevState.impValue],
-      impValue: ''
-    }))
+    const action = getChangeListAction()
+    store.dispatch(action)
   }
 
-  handleDelete (index) {
-    console.log('this', this)
-    // let arr = [...this.state.lists]
-    // arr.splice(index, 1)
-    // this.setState({
-    //   lists: arr
-    // })
-    console.log('index', index)
-    this.setState((prevState) => {
-      const lists = [...prevState.lists]
-      console.log('lists q', lists)
-      lists.splice(index, 1)
-      console.log('lists h', lists)
-      return { lists }
-    })
-  }
 
-  // 监听 input
   handleInputChange (e) {
-    // console.log('this', this)
-    // console.log('handleInputChange', e.target)
-    // console.log('handleInputChange', e.target.value)
-    // this.state.impValue = e.target.value
-    let value = e.target.value
-    this.setState(() => ({  //新的 异步写法
-      impValue: value
-    }))
-    // this.setState({
-    //   impValue: e.target.value
-    // })
+    const action = getImpChangeAction(e.target.value)
+    store.dispatch(action) // 订阅action
+
+  }
+
+  storeChange () {
+    this.setState(store.getState())
+  }
+
+  itemClick (index) {
+    console.log(index)
+    // 第一步 创建action
+    const action = getPopListAction(index)
+    store.dispatch(action)
+  }
+
+  componentDidMount () {
+    // 在组件已经被渲染到 DOM 中后运行 vue mounted
+    Axios('/list.json')
+      .then(res => {
+        if (res.status === 200) {
+          const action = initListaction(res.data)
+          store.dispatch(action)
+        }
+        console.log(res)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+
+  render () {
+    return (
+      <TodoListUI
+        inputValue={this.state.inputValue}
+        list={this.state.list}
+
+        handleInputChange={this.handleInputChange}
+        btnClick={this.btnClick}
+        itemClick={this.itemClick}
+      >
+      </TodoListUI>
+    )
   }
 }
 export default TodoList
