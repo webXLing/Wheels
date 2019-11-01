@@ -108,3 +108,17 @@
 -- 4.范式
 
 -- 5.数据库的备份和还原
+-- 命令行数据库的备份和还原
+
+-- mysqldump -uroot -p123456 test > /Users/xl/longRoad/MyGit/Keep-Learning/Mysql/save.sql 数据库备份
+
+-- mysql -uroot -p123456 登录
+
+--  drop database test;   删除数据库
+-- create database test;  创建数据库
+-- use test; 使用数据库
+
+-- source /Users/xl/longRoad/MyGit/Keep-Learning/Mysql/save.sql  还原sql
+
+
+*多表查询*
