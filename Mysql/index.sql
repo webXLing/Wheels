@@ -121,4 +121,35 @@
 -- source /Users/xl/longRoad/MyGit/Keep-Learning/Mysql/save.sql  还原sql
 
 
-*多表查询*
+-- *多表查询*
+-- SELECT * FROM employee,department ;
+-- 笛卡尔积 A集合有3条数据 B集合有2条数据 总共有3*2 6条数据
+-- 		1.内连接查询
+-- 					1.隐式内连接
+-- 查询所有员工 以及其对应的 部门信息 
+-- SELECT * FROM employee,department WHERE employee.dep_id = department.id;
+-- SELECT 
+-- t1.name,
+-- t2.dep_name,
+-- t2.dep_local 
+-- FROM 
+-- employee t1 ,
+-- department t2 
+-- WHERE 
+-- t1.dep_id = t2.id;
+-- 					2.显示内连接  查询的是交集的部分
+-- SELECT * FROM employee INNER JOIN department ON department .id = employee.dep_id;
+-- 		2.外连接查询
+-- 					1.左外链接  查询的左表的所有数据以及交集部分
+--             SELECT * FROM 表1 LEFT JOIN 表2 ON 条件	 
+--             显示所有员工信息  如果有部门信息 则显示部门信息
+-- 						SELECT * FROM employee LEFT JOIN department ON employee.dep_id = department.id;
+-- 					2.右外链接  查询右标的所有数据 以及交集部分
+-- 						SELECT * FROM department RIGHT JOIN employee ON employee.dep_id = department.id;
+-- 		3.子查询 查询中嵌套子查询  
+
+-- 		SELECT * FROM employee WHERE employee.age = (SELECT MAX(age) FROM employee);
+-- 查询 员工在 平均年龄下的 所有员工
+--    SELECT * FROM employee WHERE employee.age <(SELECT AVG(age) FROM employee); 
+-- 查询销售部和 技术部里面的所有  员工
+-- SELECT * FROM employee WHERE employee.dep_id IN (SELECT id FROM department WHERE department.id=2 OR department.id=4);
