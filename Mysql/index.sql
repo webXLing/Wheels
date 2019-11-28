@@ -153,3 +153,46 @@
 --    SELECT * FROM employee WHERE employee.age <(SELECT AVG(age) FROM employee); 
 -- 查询销售部和 技术部里面的所有  员工
 -- SELECT * FROM employee WHERE employee.dep_id IN (SELECT id FROM department WHERE department.id=2 OR department.id=4);
+
+
+-- --事务
+-- 开启事务
+-- START TRANSACTION;
+
+-- -- 提交
+-- COMMIT;
+
+-- -- 回滚
+-- ROLLBACK;
+-- mysql 是自动提交事务的
+-- 每一条 增删改 语句都会自动提交事务
+
+-- SELECT @@ autocommit =0 ; 0 手动提交
+
+--  事务的四大特征
+--  
+--  1.原子性 不可分割的最小操作单位 要么同时成功要么同时 失败
+--  2.持久性 一旦提交 或者 回滚 数据库将会持久化的保存数据 
+--  3.隔离性 多个事务之间 相互独立
+--  4.一致性 事务操作前后数据总量不变
+
+-- 事务的隔离级别 
+-- -- 多个事务之间是相互独立的 但是如果多个事务操作同一批数据 则会引发一些问题 设置不同的隔离级别 就可以解决
+
+-- DCL  管理用户和授权
+-- 查询用户
+-- use mysql; 
+-- SELECT * FROM USER;
+
+-- -- 创建用户
+-- CREATE USER '用户名'@'主机名' IDENTIFIED BY '密码';
+-- CREATE USER 'test1105'@'localhost' IDENTIFIED BY '123456';
+-- CREATE USER 'test'@'localhost' IDENTIFIED BY '123456';
+
+-- -- 删除用户
+-- DROP USER 'test1105'@'localhost';
+
+-- -- 修改用户密码 
+
+-- UPDATE USER SET PASSWORD=PASSWORD('123') WHERE USER = 'test';
+
