@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!--mybatis 的主配置文件-->
+<configuration>
+
+    <!--通过配置文件 引入-->
+    <properties resource="jdbcConfig.properties">
+<!--        <property name="driver" value="com.mysql.jdbc.Driver"/>-->
+<!--        <property name="url" value="jdbc:mysql://localhost:3306/easy"/>-->
+<!--        <property name="username" value="root"/>-->
+<!--        <property name="password" value="123456"/>-->
+    </properties>
+
+<!--    使用typeAliases配置别名 只能配置domain 包下的类的别名-->
+    <typeAliases>
+        <!-- type实体类全限定类名 alias别名 并且不区分大小写-->
+<!--        <typeAlias type="com.xxl.domain.User" alias="user"></typeAlias>-->
+        <!--   用于指定配置别名的包 类名就是别名 不区分带小写-->
+        <package name="com.xxl.domain"/>
+    </typeAliases>
+
+    <!-- 配置环境-->
+    <environments default="mysql">
+<!--        配置mysql-->
+        <environment id="mysql">
+<!--            配置事务类型-->
+            <transactionManager type="JDBC"></transactionManager>
+<!--            配置数据源 连接池-->
+            <dataSource type="POOLED">
+<!--                配置连接数据库的4个基本信息-->
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+             </dataSource>
+        </environment>
+    </environments>
+
+<!--    指定映射配置文件的位置， 映射配置文件指的是 每个dao独立的配置文件-->
+    <mappers>
+<!--        <mapper resource="com/xxl/dao/IUserDao.xml"></mapper>-->
+        <!-- 用于指定dao 所在的包-->
+        <package name="com.xxl.dao"/>
+    </mappers>
+</configuration>
