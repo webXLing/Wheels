@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xxl.dao.Acount">
+<!--    dao操作配置-->
+
+<!--   解决实体类属性 与表字段不对应的问题  第一种开发效率高 但是执行效率低-->
+
+<!--    <resultMap id="userMap" type="com.xxl.domain.User">-->
+<!--&lt;!&ndash;        主键&ndash;&gt;-->
+<!--        <id property="userId" column="id"></id>-->
+<!--&lt;!&ndash;        非主键&ndash;&gt;-->
+<!--        <result property="userName" column="name"></result>-->
+<!--    </resultMap>-->
+<!--    &lt;!&ndash;    配置查询所有&ndash;&gt;-->
+<!--    <select id="findAll" resultMap="userId">-->
+<!--        select  * from user-->
+<!--    </select>-->
+
+    <!--  定义acount user 共同的resultmap-->
+    <resultMap id="acountusermap" type="acount">
+        <result property="id" column="a id"></result>
+        <result property="money" column="money"></result>
+
+        <association property="user" column="uid" javaType="user">
+            <result property="id" column="id"></result>
+            <result property="username" column="username"></result>
+            <result property="birthday" column="birthday"></result>
+            <result property="sex" column="sex"></result>
+            <result property="address" column="address"></result>
+        </association>
+    </resultMap>
+
+    <!--    配置查询所有-->
+    <select id="getAll" resultType="acount">
+select * from user
+    </select>
+
+    <select id="findAllInfo" resultType="acountuser">
+        SELECT a.*,b.ID as aid,b.MONEY FROM user as a,account as b WHERE a.id =b.uid;
+    </select>
+
+</mapper>

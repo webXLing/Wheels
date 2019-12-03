@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c93a5411-5518-4efe-b060-47bda0a3ea2a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../mybatis01/.idea/$CACHE_FILE$" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mybatis01/.idea/$PRODUCT_WORKSPACE_FILE$" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mybatis01/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mybatis01/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mybatis01/.idea/externalDependencies.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mybatis01/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mybatis01/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mybatis01/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mybatis01/mybatis01.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mybatis01/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mybatis01/src/main/java/com/xxl/dao/IUSerDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mybatis01/src/main/java/com/xxl/domain/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mybatis01/src/main/resources/SqlMapConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mybatis01/src/main/resources/com/xxl/dao/IUserDao.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mybatis01/src/main/resources/log4j.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mybatis01/src/test/java/com/xxl/testMy.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mybatis01/target/classes/SqlMapConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mybatis01/target/classes/com/xxl/dao/IUSerDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mybatis01/target/classes/com/xxl/dao/IUserDao.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mybatis01/target/classes/com/xxl/domain/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mybatis01/target/classes/log4j.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mybatis01/target/test-classes/com/xxl/testMy.class" beforeDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="$PROJECT_DIR$/.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="/usr/local/apache-maven-3.6.2/repository" />
+        <option name="mavenHome" value="/usr/local/apache-maven-3.6.2" />
+        <option name="userSettingsFile" value="/usr/local/apache-maven-3.6.2/conf/settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+        <option name="vmOptionsForImporter" value="-Xmx768m" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1UNdPxHfXoYl0zz8htAiZsUycbK" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.externalDependencies" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="testMy.selectAll" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="mybatis_datasource" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.xxl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.xxl" />
+      <option name="MAIN_CLASS_NAME" value="com.xxl.testMy" />
+      <option name="METHOD_NAME" value="selectAll" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.testMy.selectAll" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c93a5411-5518-4efe-b060-47bda0a3ea2a" name="Default Changelist" comment="" />
+      <created>1575200966453</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1575200966453</updated>
+      <workItem from="1575200973519" duration="589000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

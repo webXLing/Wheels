@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xxl.dao.IUSerDao">
+<!--    dao操作配置-->
+
+<!--   解决实体类属性 与表字段不对应的问题  第一种开发效率高 但是执行效率低-->
+
+<!--    <resultMap id="userMap" type="com.xxl.domain.User">-->
+<!--&lt;!&ndash;        主键&ndash;&gt;-->
+<!--        <id property="userId" column="id"></id>-->
+<!--&lt;!&ndash;        非主键&ndash;&gt;-->
+<!--        <result property="userName" column="name"></result>-->
+<!--    </resultMap>-->
+<!--    &lt;!&ndash;    配置查询所有&ndash;&gt;-->
+<!--    <select id="findAll" resultMap="userId">-->
+<!--        select  * from user-->
+<!--    </select>-->
+
+    <!--    配置查询所有-->
+<!--    <select id="findAll" resultType="com.xxl.domain.User">-->
+<!--        select  id as userId,name as userName from user-->
+<!--    </select>-->
+    <resultMap id="usermap" type="user">
+        <id property="id" column="id" ></id>
+        <result property="username" column="username"></result>
+        <result property="birthday" column="birthday"></result>
+        <result property="sex" column="sex"></result>
+        <result property="address" column="address"></result>
+
+        <!-- 配置acounts 集合-->
+        <collection property="acounts" ofType="acount">
+            <id property="id" column="aid"></id>
+
+            <result property="money" column="money"></result>
+            <result property="uid" column="uid"></result>
+        </collection>
+    </resultMap>
+
+
+    <!--    配置查询所有-->
+    <select id="findAll" resultMap="usermap">
+SELECT * from user u LEFT JOIN account a ON u.id = a.UID
+    </select>
+
+    <select id="findUserByUser" parameterType="int" resultType="com.xxl.domain.User">
+        select * from user where id =#{a}
+    </select>
+</mapper>
