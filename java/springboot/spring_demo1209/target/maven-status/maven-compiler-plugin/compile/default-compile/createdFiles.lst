@@ -1,0 +1,7 @@
+com/xxl/mapper/UserMapper.class
+com/xxl/conf/MvcConfig.class
+com/xxl/web/WebControler.class
+com/xxl/conf/JdbcPro.class
+com/xxl/BootDemo.class
+com/xxl/interceptor/MyInterceptor.class
+com/xxl/pojo/User.class

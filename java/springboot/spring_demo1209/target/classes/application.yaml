@@ -1,0 +1,24 @@
+server:
+  port: 8088
+  servlet:
+    path: /
+
+logging:
+  level:
+    com.xxl: debug
+#    org.springframework: debug
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/yun6
+    username: root
+    password: 123456
+
+mybatis:
+#  configuration:
+#    开启驼峰
+#  通用mapper 集成了mapper
+#    map-underscore-to-camel-case: true
+  type-aliases-package: com.xxl.pojo
+#    这个配置是为了 多表的操作 单表用不到
+#  mapper-locations: mapper/*.xml
