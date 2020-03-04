@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,27 +8,28 @@
   <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
   <title>手写一个promise</title>
 </head>
+
 <body>
-  
+
 </body>
 <script>
   // promise的本质  状态机
   // 1.当状态改变的时候调用then挂起的队列
   // 2.当then的时候执行对应的函数 ，并且参数给她
   class myPromise {
-    constructor (fn){
+    constructor(fn) {
       this.__succ_res = null;//成功的结果
       this.__erro_res = null;//失败的结果
       this.status = 'padding';//promise的状态
       this.__queue = [];//队列
-      fn((...arg)=>{//异步操作成功的结果 resolve
-        console.log('this',this)
+      fn((...arg) => {//异步操作成功的结果 resolve
+        console.log('this', this)
         this.__succ_res = arg
         this.status = 'succ'//状态是成功的
         this.__queue.forEach(element => {
           element.fn1(...arg)
         });
-      },(...arg)=>{//异步操作失败的结果 reject
+      }, (...arg) => {//异步操作失败的结果 reject
         this.__erro_res = arg
         this.status = 'error'//状态是失败的
         this.__queue.forEach(element => {
@@ -36,42 +38,42 @@
       });//执行promise传入的fn 中的两个入参 起始就是resolve和reject
     }
 
-    then (fn1,fn2){
-      if(this.status === 'succ'){
+    then(fn1, fn2) {
+      if (this.status === 'succ') {
         fn1(...this.__succ_res)
-      }else if(this.status === 'error'){
+      } else if (this.status === 'error') {
         fn2(...this.__erro_res)
-      }else if(this.status === 'padding'){//既没成功也没有失败
-        this.__queue.push({fn1,fn2})
+      } else if (this.status === 'padding') {//既没成功也没有失败
+        this.__queue.push({ fn1, fn2 })
       }
     }
   }
 
-  myPromise.all = function (promiseArr){
+  myPromise.all = function (promiseArr) {
     let resultArr = [];//存放 异步操作的结果 请求结果
-    return new myPromise((resolve,reject)=>{
+    return new myPromise((resolve, reject) => {
       let i = 0;//成功的次数
       next();
-      function next(){
-        promiseArr[i].then((res)=>{
+      function next() {
+        promiseArr[i].then((res) => {
           i++;
           resultArr.push(res)
-          if(i == promiseArr.length){
+          if (i == promiseArr.length) {
             resolve(resultArr)
-          }else{//递归
+          } else {//递归
             next();
           }
-        },reject)
+        }, reject)
       }
     });
   }
 
-  myPromise.race = function (promiseArr){//谁跑的快，以谁为准执行回调
-    return new myPromise ((resolve,reject)=>{
-      for(let i= 0 ;i<promiseArr.length;i++){
-        promiseArr[i].then(res=>{
+  myPromise.race = function (promiseArr) {//谁跑的快，以谁为准执行回调
+    return new myPromise((resolve, reject) => {
+      for (let i = 0; i < promiseArr.length; i++) {
+        promiseArr[i].then(res => {
           resolve(res)
-        },error=>{
+        }, error => {
           reject(error)
         })
       }
@@ -79,30 +81,42 @@
   }
   // ,dataType:'json'
 
+  // myPromise.all([
+  //   $.ajax({ url: 'https://www.easy-mock.com/mock/5bfcb4db0dae3c3de7500e1d/example_copy_copy/upload', type: "post" }),
+  //   $.ajax({ url: 'https://www.easy-mock.com/mock/5bfbfa7391ea222a361d832e/example/query', dataType: 'json' })
+  // ]).then(res => {
+  //   alert('成功了')
+  //   console.log(res)
+  // }, error => {
+  //   alert('失败了')
+  // })
 
-  myPromise.all([
-    $.ajax({url:'https://www.easy-mock.com/mock/5bfcb4db0dae3c3de7500e1d/example_copy_copy/upload',type:"post"}),
-    $.ajax({url:'https://www.easy-mock.com/mock/5bfbfa7391ea222a361d832e/example/query',dataType:'json'})
-  ]).then(res=>{
-    alert('成功了')
-    console.log(res)
-  },error=>{
-    alert('失败了')
+  let p = new myPromise((resolve, reject) => {
+    setTimeout(() => {
+      if (true) {
+        resolve('resolve 成功了', 666)
+      } else {
+        reject('reject 失败了', 666)
+      }
+    }, 500)
+  })
+  p.then((res) => {
+    console.log(res);
+  }, (err) => {
+    console.log(err);
+
   })
 
-  // let p = new myPromise((resolve,reject)=>{
-  //   setTimeout(()=>{
-  //     resolve(666)
-  //   },500)
-  // })
-  // p.then((res)=>{
-  //   alert(res)
-  // },(err)=>{
-  //   alert(err,'错误了')
-  // })
 
+  // 1.所以 传入promise的异步函数 会先同步执行
+  // 2.由于是异步的函数 所以then 比 回调函数 先执行
+  // 3.此时 then 会将回调函数放在队列中
+  // 4.当回调函数 可以执行时
+  // 比如 resolve('resolve 成功了')
+  // resolve内部会将 这个promise的状态改为success 然后再队列当中去 拿取成功的回调
 
   // https://juejin.im/post/5afe6d3bf265da0b9e654c4b#heading-7  掘金
 
 </script>
+
 </html>
