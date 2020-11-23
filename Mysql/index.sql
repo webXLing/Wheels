@@ -40,6 +40,9 @@
 -- SELECT AVG(age) FROM user_table  ;
 -- 5.sum 总和
 -- SELECT SUM(age) FROM user_table  ;
+-- 5.查询年龄最大的 学生信息
+-- select * from user_table where age=(select max(age) from user_table);
+
 
 
 -- 3，分组查询 
