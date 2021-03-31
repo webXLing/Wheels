@@ -27,6 +27,7 @@
         this.__succ_res = arg
         this.status = 'succ'//状态是成功的
         this.__queue.forEach(element => {
+          console.log("element", element)
           element.fn1(...arg)
         });
       }, (...arg) => {//异步操作失败的结果 reject
@@ -39,11 +40,15 @@
     }
 
     then(fn1, fn2) {
+      console.log(1)
       if (this.status === 'succ') {
+        console.log(2)
         fn1(...this.__succ_res)
       } else if (this.status === 'error') {
+        console.log(3)
         fn2(...this.__erro_res)
       } else if (this.status === 'padding') {//既没成功也没有失败
+        console.log(4)
         this.__queue.push({ fn1, fn2 })
       }
     }
@@ -98,7 +103,7 @@
       } else {
         reject('reject 失败了', 666)
       }
-    }, 500)
+    }, 1000)
   })
   p.then((res) => {
     console.log(res);
