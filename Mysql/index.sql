@@ -49,7 +49,7 @@
 -- *** 按照性别分组 查询男女同学的人数 以及平均分
 -- SELECT  sex , AVG(math),COUNT(id) FROM user_table GROUP BY sex;
 -- *** 按照性别分组 查询男女同学的人数 以及平均分  分数在大于0分的才进行分组  分组后的结果 只显示每组数量大于2的组
--- SELECT sex, AVG(math), COUNT(id) FROM user_table WHERE math >= 0 GROU P  BY sex HAVING COUNT(id)>2;
+-- SELECT sex, AVG(math), COUNT(id) FROM user_table WHERE math >= 0 GROUP  BY sex HAVING COUNT(id)>2;
 --  
 -- 4，分页查询 LIMIT 是mysql 的方言
 -- SELECT * FROM user_table LIMIT 0,3;
